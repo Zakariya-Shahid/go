@@ -73,6 +73,7 @@ func main() {
 			break
 		case 2:
 			display(studentList)
+			fmt.Println("End of list")
 		default:
 			fmt.Println("Invalid Input.\n")
 
