@@ -1,22 +1,27 @@
 package main
 
 import (
+	"crypto/sha256"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
 type Student struct {
-	roll_no int
-	name    string
-	address string
+	roll_no  int
+	name     string
+	address  string
+	subjects []string
 }
 
-func newStudent(roll_no int, name string, address string) *Student {
+func newStudent(roll_no int, name string, address string, sub []string) *Student {
 	student := new(Student)
 	student.roll_no = roll_no
 	student.name = name
 	student.address = address
+
+	student.subjects = sub
 
 	return student
 }
@@ -30,6 +35,19 @@ func display(list []Student) {
 		fmt.Println("\n\tRoll No : ", list[i].roll_no)
 		fmt.Println("\n\tName : ", list[i].name)
 		fmt.Println("\n\tAddress : ", list[i].address)
+		fmt.Println("\n\tCourses : ")
+
+		var hash string
+
+		hash += strconv.Itoa(list[i].roll_no) + list[i].name + list[i].address
+
+		for j := 0; j < len(list[i].subjects); j++ {
+			fmt.Println("\n\t\t", j+1, list[i].subjects[j])
+			hash += list[i].subjects[j]
+		}
+
+		sum := sha256.Sum256([]byte(hash))
+		fmt.Printf("Hash = %x\n", sum)
 	}
 }
 
@@ -43,6 +61,8 @@ func menu() {
 func main() {
 
 	studentList := make([]Student, 0)
+
+	subjects := []string{"Blockchain", "PDC", "CNET"}
 
 	var input int
 	check := 1
@@ -67,6 +87,8 @@ func main() {
 			fmt.Scan(&st.name)
 			fmt.Print("Enter the address : ")
 			fmt.Scan(&st.address)
+
+			st.subjects = subjects
 
 			studentList = append(studentList, st)
 
