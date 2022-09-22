@@ -28,7 +28,6 @@ func display(list []Student) {
 	for i := 0; i < length; i++ {
 		fmt.Println("\n\n\t", strings.Repeat("=", 25), " Student ", i+1, strings.Repeat("=", 25), "\n")
 		fmt.Println("\n\tRoll No : ", list[i].roll_no)
-		fmt.Println("\n\tRoll No : ", list[i].roll_no)
 		fmt.Println("\n\tName : ", list[i].name)
 		fmt.Println("\n\tAddress : ", list[i].address)
 	}
